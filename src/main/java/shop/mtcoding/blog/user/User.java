@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="user_tb")
+@Table(name = "user_tb")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO INCREMENT
     private int id;
 
     @Column(unique = true)

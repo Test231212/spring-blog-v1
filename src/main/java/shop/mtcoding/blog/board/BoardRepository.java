@@ -7,16 +7,19 @@ import shop.mtcoding.blog._core.Constant;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.math.BigInteger;
 import java.util.List;
+
 @RequiredArgsConstructor
 @Repository
 public class BoardRepository {
     private final EntityManager em;
-    private final JdbcTemplate jdbcTemplate;
 
     public int count(){
 
-        return 1;
+        Query query = em.createNativeQuery("select count(*) from board_tb");
+        BigInteger count = (BigInteger) query.getSingleResult();
+        return count.intValue();
     }
 
     public List<Board> findAll(int page){
@@ -24,7 +27,6 @@ public class BoardRepository {
         Query query = em.createNativeQuery("select * from board_tb order by id desc limit ?,?", Board.class);
         query.setParameter(1, value);
         query.setParameter(2, Constant.PAGING_COUNT);
-
         List<Board> boardList = query.getResultList();
         return boardList;
     }
